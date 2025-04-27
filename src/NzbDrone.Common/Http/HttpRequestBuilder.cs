@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Web;
 using NzbDrone.Common.Extensions;
 
 namespace NzbDrone.Common.Http
@@ -231,7 +232,7 @@ namespace NzbDrone.Common.Http
             }
             else
             {
-                var parameters = FormData.Select(v => string.Format("{0}={1}", v.Name, Uri.EscapeDataString(Encoding.GetString(v.ContentData))));
+                var parameters = FormData.Select(v => string.Format("{0}={1}", v.Name, HttpUtility.UrlEncode(Encoding.GetString(v.ContentData), Encoding)));
                 var urlencoded = string.Join("&", parameters);
                 var body = Encoding.GetBytes(urlencoded);
 
